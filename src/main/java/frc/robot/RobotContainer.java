@@ -19,6 +19,9 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final RomiDrivetrain m_romiDrivetrain = new RomiDrivetrain();
 
+  //Defining forward command
+  private final Forward m_Forward = new Forward(m_romiDrivetrain);
+
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_romiDrivetrain);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -42,6 +45,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return m_Forward;
   }
 }

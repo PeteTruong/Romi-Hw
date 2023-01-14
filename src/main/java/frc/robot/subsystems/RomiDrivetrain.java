@@ -54,6 +54,10 @@ public class RomiDrivetrain extends SubsystemBase {
     return m_rightEncoder.getDistance();
   }
 
+  //Takes the data from both and encoders and gets the average
+  public double getAverageDistance(){
+    return m_leftEncoder.getLeftDistanceInch() + m_rightEncoder.getRightDistanceInch();
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
