@@ -12,21 +12,20 @@ public class Forward extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final RomiDrivetrain m_db;
   //Initialize this variable for amount of distance we want later
-  //private final int distance;
+  private final int distance;
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
   // The Command takes in the subsystem and the amount of inches the Romi has to move.
-  public Forward(RomiDrivetrain db) {
+  public Forward(RomiDrivetrain db, int inches) {
     //Store these values into the ones previously made to be accessed by global variables.
     m_db = db;
-    //distance = inches;
-
-    
+    distance = inches;
+  
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_db);
+    addRequirements(db);
   }
 
   // Called when the command is initially scheduled.
@@ -40,7 +39,8 @@ public class Forward extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_db.arcadeDrive​(0.5, 0);
+    //Takes the y-axis value of the left joystick to move forward and the x-axis value of the right joystick to rotate.
+    m_db.arcadeDrive​(RobotContainer.controller.getLeftY(), RobotContainer.controller.getRightX());
   }
 
   // Called once the command ends or is interrupted.
@@ -52,6 +52,7 @@ public class Forward extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (m_db.getAverageDistance() > 14);
+    //Stops when the amount of distance traveled is reached OR if inputted value is less than 0 or negative.
+    return (m_db.getLeftDistanceInch() < 0 || 0 < distance);
   }
 }

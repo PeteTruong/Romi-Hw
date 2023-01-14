@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class RomiDrivetrain extends SubsystemBase {
   private static final double kCountsPerRevolution = 1440.0;
@@ -25,6 +26,9 @@ public class RomiDrivetrain extends SubsystemBase {
 
   // Set up the differential drive controller
   private final DifferentialDrive m_diffDrive = new DifferentialDrive(m_leftMotor, m_rightMotor);
+
+  //Creates an object of Xbox controller
+ 
 
   /** Creates a new RomiDrivetrain. */
   public RomiDrivetrain() {
@@ -54,9 +58,6 @@ public class RomiDrivetrain extends SubsystemBase {
     return m_rightEncoder.getDistance();
   }
 
-  //Takes the data from both and encoders and gets the average
-  public double getAverageDistance(){
-    return m_leftEncoder.getLeftDistanceInch() + m_rightEncoder.getRightDistanceInch();
   }
   @Override
   public void periodic() {
