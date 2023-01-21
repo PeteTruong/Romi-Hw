@@ -12,14 +12,14 @@ public class Forward extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final RomiDrivetrain m_db;
   //Initialize this variable for amount of distance we want later
-  private final int distance;
+  private final double distance;
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
   // The Command takes in the subsystem and the amount of inches the Romi has to move.
-  public Forward(RomiDrivetrain db, int inches) {
+  public Forward(RomiDrivetrain db, double inches) {
     //Store these values into the ones previously made to be accessed by global variables.
     m_db = db;
     distance = inches;
@@ -53,6 +53,6 @@ public class Forward extends CommandBase {
   @Override
   public boolean isFinished() {
     //Stops when the amount of distance traveled is reached OR if inputted value is less than 0 or negative.
-    return (m_db.getLeftDistanceInch() < 0 || 0 < distance);
+    return (m_db.getLeftDistanceInch() > distance || distance < 0);
   }
 }
