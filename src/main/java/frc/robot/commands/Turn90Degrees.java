@@ -8,23 +8,19 @@ import frc.robot.subsystems.RomiDrivetrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class Forward extends CommandBase {
+public class Turn90Degrees extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final RomiDrivetrain m_db;
-  //Initialize this variable for amount of distance we want later
-  //private final int distance;
+  private final int angle;
+
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  // The Command takes in the subsystem and the amount of inches the Romi has to move.
-  public Forward_14_inches(RomiDrivetrain db) {
-    //Store these values into the ones previously made to be accessed by global variables.
+  public Turn90Degrees(RomiDrivetrain db, int degrees) {
     m_db = db;
-    //distance = inches;
-
-    
+    angle = degrees;  
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(db);
   }
@@ -32,15 +28,13 @@ public class Forward extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //Clears all values and resets it to 0
-    m_db.arcadeDrive(0,0);
-    m_db.resetEncoders();
+    m_RomiGyro.Reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_db.arcadeDrive​(0.5, 0);
+    m_db.arcadeDrive(0.5, m_PIDController.calculate(m_RomiGyro.getAngleZ, 0));
   }
 
   // Called once the command ends or is interrupted.
@@ -52,6 +46,6 @@ public class Forward extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_RomiGyro.getAngleZ > angle;
   }
 }

@@ -62,6 +62,11 @@ public class RomiDrivetrain extends SubsystemBase {
     return m_rightEncoder.getDistance();
   }
 
+  //kp 0.1, ki 0, kd 0
+  public static RomiGyro m_gyro = new RomiGyro();
+  public final PIDController m_pid = new PIDController​(kp: 0.1, ki:0, kd:0)
+
+
   }
   @Override
   public void periodic() {
